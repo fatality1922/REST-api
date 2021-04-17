@@ -14,10 +14,6 @@ router.route('/seats/:id').get((req, res) => {
     res.json(db.seats.filter(item => item.id === parseInt(req.params.id)));
 });
 
-router.route('/seats/random').get((req, res) => {
-    res.json(db.seats.Math.floor(Math.random() * db.seats.length));
-});
-
 router.route('/seats').post((req, res) => {
     const { day, seat, client, email } = req.body;
     db.seats.push({
