@@ -16,7 +16,7 @@ router.route('/concerts/:id').get((req, res) => {
 
 
 router.route('/concerts').post((req, res) => {
-    const { performer, genre, price, day, image  } = req.body;
+    const { performer, genre, price, day, image } = req.body;
     db.concerts.push({
         id: uuidv4(),
         performer,
@@ -31,20 +31,20 @@ router.route('/concerts').post((req, res) => {
 
 
 router.route('/concerts/:id').put((req, res) => {
-    const { performer, genre, price, day, image  } = req.body;
-    for (let i = 0; i < db.concerts.length; i++) {
-        if (db.concerts[i].id === parseInt(req.params.id)) {
-            db.concerts[req.params.id].performer = performer;
-            db.concerts[req.params.id].genre = genre;
-            db.concerts[req.params.id].price = price;
-            db.concerts[req.params.id].day = day;
-            db.concerts[req.params.id].image = image;
+    const { performer, genre, price, day, image } = req.body;
+    const item = db.concerts.find(item => item.id == req.params.id);
+    if (item) {
+        item.performer = performer;
+        item.genre = genre;
+        item.price = price;
+        item.day = day;
+        item.image = image;
 
-            res.json(status);
-        } else {
-            res.json({ message: `this post with ${req.params.id} doesn't exists` })
-        }
+        res.json(status);
+    } else {
+        res.json({ message: `this post with ${req.params.id} doesn't exists` })
     }
+
 });
 
 router.route('/concerts/:id').delete((req, res) => {

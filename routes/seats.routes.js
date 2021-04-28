@@ -30,17 +30,16 @@ router.route('/seats').post((req, res) => {
 
 router.route('/seats/:id').put((req, res) => {
     const { day, seat, client, email } = req.body;
-    for (let i = 0; i < db.seats.length; i++) {
-        if (db.seats[i].id === parseInt(req.params.id)) {
-            db.seats[req.params.id].day = day;
-            db.seats[req.params.id].seat = seat;
-            db.seats[req.params.id].client = client;
-            db.seats[req.params.id].email = email;
+    const item = db.seats.find(item => item.id == req.params.id);
+    if (item) {
+        item.day = day;
+        item.seat = seat;
+        item.client = client;
+        item.email = email;
 
-            res.json(status);
-        } else {
-            res.json({ message: `this post with ${req.params.id} doesn't exists` })
-        }
+        res.json(status);
+    } else {
+        res.json({ message: `this post with ${req.params.id} doesn't exists` })
     }
 });
 

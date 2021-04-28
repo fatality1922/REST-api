@@ -28,15 +28,14 @@ router.route('/testimonials').post((req, res) => {
 
 router.route('/testimonials/:id').put((req, res) => {
   const { author, text } = req.body;
-  for (let i = 0; i < db.testimonials.length; i++) {
-    if (db.testimonials[i].id === parseInt(req.params.id)) {
-      db.testimonials[req.params.id].author = author;
-      db.testimonials[req.params.id].text = text;
+  const item = db.testimonials.find(item => item.id == req.params.id);
+  if (item) {
+      item.author = author;
+      item.text = text;
 
       res.json(status);
-    } else {
+  } else {
       res.json({ message: `this post with ${req.params.id} doesn't exists` })
-    }
   }
 });
 
