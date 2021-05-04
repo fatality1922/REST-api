@@ -16,15 +16,20 @@ router.route('/seats/:id').get((req, res) => {
 
 router.route('/seats').post((req, res) => {
     const { day, seat, client, email } = req.body;
-    db.seats.push({
-        id: uuidv4(),
-        day,
-        seat,
-        client,
-        email,
-    });
 
-    return res.json(status);
+    const seatTaken = db.seats.some(item => item.day === req.params.day && data.seat == req.params.seat);
+    if (seatTaken) {
+        res.status(403).json({ message: 'The seat is already taken'});
+    } else {
+        db.seats.push({
+            id: uuidv4(),
+            day,
+            seat,
+            client,
+            email
+        });
+    }
+    return res.json(msg);
 })
 
 
