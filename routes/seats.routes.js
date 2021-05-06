@@ -30,6 +30,7 @@ router.route('/seats').post((req, res) => {
             email
         });
         res.json({ message: 'OK' })
+        req.io.emit('seatsUpdated', db.seats);
     }
 })
 
