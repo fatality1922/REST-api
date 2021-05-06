@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const socket = require('socket.io');
+const openSocket = require('socket.io');
 
 const app = express();
 const testimonialsRoutes = require('./routes/testimonials.routes');
@@ -32,7 +32,7 @@ const server = app.listen(process.env.PORT || 8000, () => {
   console.log('Server is running on port: 8000');
 });
 
-const io = socket(server);
+const io = openSocket(server);
 
 io.on('connection', (socket) => {
   console.log('New socket!');

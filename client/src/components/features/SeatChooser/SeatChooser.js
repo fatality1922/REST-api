@@ -1,13 +1,16 @@
 import React from 'react';
 import { Button, Progress, Alert } from 'reactstrap';
-import io from 'socket.io';
+import openSocket from 'socket.io-client';
+
 import './SeatChooser.scss';
 
 class SeatChooser extends React.Component {
   
+
+  
   componentDidMount() {
     const { loadSeats } = this.props;
-    this.socket = io((process.env.NODE_ENV === 'production') ? 
+    this.socket = openSocket((process.env.NODE_ENV === 'production') ? 
     '/' : 'http://localhost:8000');
     loadSeats();
   }

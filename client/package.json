@@ -14,7 +14,7 @@
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
     "sass": "^1.32.12",
-    "socket.io": "^4.0.2"
+    "socket.io": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
