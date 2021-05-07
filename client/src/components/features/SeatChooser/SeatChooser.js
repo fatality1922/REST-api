@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Progress, Alert } from 'reactstrap';
-import socket from 'socket.io-client';
+import socket from 'socket.io';
 
 import './SeatChooser.scss';
 
@@ -8,8 +8,7 @@ class SeatChooser extends React.Component {
   
   componentDidMount() {
     const { loadSeats, loadSeatsData } = this.props;
-    this.socket = socket((process.env.NODE_ENV === 'production') ? 
-    '/' : 'http://localhost:8000');
+    this.socket = socket((process.env.NODE_ENV === 'production') ?  '/' : 'http://localhost:8000', { transports: ["websocket"] });
     loadSeats();
     this.socket.on('seatsUpdated', (seats) => loadSeatsData(seats))
   }
