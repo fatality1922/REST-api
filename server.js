@@ -19,6 +19,14 @@ mongoose.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifie
   }
 });
 
+const db = mongoose.connection;
+
+db.once('open', () => {
+  console.log('Connected to the database');
+});
+db.on('error', err => console.log('Error ' + err));
+
+
 app.use((req, res, next) => {
   req.io = io;
   next();
@@ -53,5 +61,6 @@ const io = socket(server);
 io.on('connection', (socket) => {
   console.log('New client! Its id = ' + socket.id);
 });
+
 
 
