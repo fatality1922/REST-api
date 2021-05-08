@@ -1,9 +1,9 @@
-const concerts = require('../models/concerts.model');
+const Concert = require('../models/concerts.model');
 
 
 exports.getAll = async (req, res) => {
     try {
-        res.json(await concerts.find({}));
+        res.json(await Concert.find({}));
     }
     catch (err) {
         res.status(500).json({message: err});
@@ -12,7 +12,7 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
     try {
-        const item = await concerts.findById(req.params.id);
+        const item = await Concert.findById(req.params.id);
         if (!item) res.status(404).json({message: 'Not found'});
         else res.json(item);
     }
@@ -25,8 +25,8 @@ exports.addNew = async (req, res) => {
 
     try {
         const {performer, genre, price, day, image} = req.body;
-        const newseats = new concerts({performer: performer, genre: genre, price: price, day: day, image: image});
-        await newseats.save();
+        const newConcert = new Concert({performer: performer, genre: genre, price: price, day: day, image: image});
+        await newConcert.save();
         res.json({message: 'OK'});
 
     } catch (err) {
@@ -38,7 +38,7 @@ exports.change = async (req, res) => {
 
     const {performer, genre, price, day, image} = req.body;
     try {
-        const item = await concerts.findByIdAndUpdate(
+        const item = await Concert.findByIdAndUpdate(
             req.params.id,
             {$set: {performer: performer, genre: genre, price: price, day: day, image: image}},
             {new: true});
@@ -51,9 +51,9 @@ exports.change = async (req, res) => {
 
 exports.deleteById = async (req, res) => {
     try {
-        const item = await (concerts.findById(req.params.id));
+        const item = await (Concert.findById(req.params.id));
         if (item) {
-            await concerts.deleteOne({_id: req.params.id});
+            await Concert.deleteOne({_id: req.params.id});
             res.json(item);
         }
         else res.status(404).json({message: 'Not found...'});

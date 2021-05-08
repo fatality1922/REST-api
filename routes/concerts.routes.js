@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const concertsController = require('../controllers/concerts.controller')
+const concertController = require('../controllers/concerts.controller')
 
-router.get('/concerts', concertsController.getAll);
-router.get('/concerts/:id', concertsController.getById);
-router.post('/concerts', concertsController.addNew);
-router.put('/concerts/:id', concertsController.change);
-router.delete('/concerts/:id', concertsController.deleteById);
+router.get('/concerts', concertController.getAll);
+router.get('/concerts/:id', concertController.getById);
+router.post('/concerts', concertController.addNew);
+router.put('/concerts/:id', concertController.change);
+router.delete('/concerts/:id', concertController.deleteById);
 
 module.exports = router;

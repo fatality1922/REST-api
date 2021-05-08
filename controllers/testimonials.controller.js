@@ -1,9 +1,9 @@
-const testimonials = require('../models/testimonials.model');
+const testimonial = require('../models/testimonials.model');
 
 
 exports.getAll = async (req, res) => {
     try {
-        res.json(await testimonials.find({}));
+        res.json(await testimonial.find({}));
     }
     catch (err) {
         res.status(500).json({message: err});
@@ -12,7 +12,7 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
     try {
-        const item = await testimonials.findById(req.params.id);
+        const item = await testimonial.findById(req.params.id);
         if (!item) res.status(404).json({message: 'Not found'});
         else res.json(item);
     }
@@ -25,8 +25,8 @@ exports.addNew = async (req, res) => {
 
     try {
         const {author, text} = req.body;
-        const newtestimonials = new testimonials({author: author, text: text});
-        await newtestimonials.save();
+        const newTestimonial = new testimonial({author: author, text: text});
+        await newTestimonial.save();
         res.json({message: 'OK'});
 
     } catch (err) {
@@ -38,7 +38,7 @@ exports.change = async (req, res) => {
 
     const {author, text} = req.body;
     try {
-        const item = await testimonials.findByIdAndUpdate(
+        const item = await testimonial.findByIdAndUpdate(
             req.params.id,
             {$set: {author: author, text: text}},
             {new: true});
@@ -51,9 +51,9 @@ exports.change = async (req, res) => {
 
 exports.deleteById = async (req, res) => {
     try {
-        const item = await (testimonials.findById(req.params.id));
+        const item = await (testimonial.findById(req.params.id));
         if (item) {
-            await testimonials.deleteOne({_id: req.params.id});
+            await testimonial.deleteOne({_id: req.params.id});
             res.json(item);
         }
         else res.status(404).json({message: 'Not found...'});

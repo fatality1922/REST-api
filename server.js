@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const socket = require('socket.io');
-const mongoClient = require('mongodb').MongoClient;
+// const mongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 
 const app = express();
@@ -10,7 +10,7 @@ const testimonialsRoutes = require('./routes/testimonials.routes');
 const seatsRoutes = require('./routes/seats.routes');
 const concertsRoutes = require('./routes/concerts.routes');
 
-mongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+mongoose.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
   if (err){
     console.log(err);
   }

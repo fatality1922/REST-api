@@ -1,9 +1,9 @@
-const seats = require('../models/seats.model');
+const Seat = require('../models/seats.model');
 
 
 exports.getAll = async (req, res) => {
     try {
-        res.json(await seats.find({}));
+        res.json(await Seat.find({}));
     }
     catch (err) {
         res.status(500).json({message: err});
@@ -12,7 +12,7 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
     try {
-        const item = await seats.findById(req.params.id);
+        const item = await Seat.findById(req.params.id);
         if (!item) res.status(404).json({message: 'Not found'});
         else res.json(item);
     }
@@ -25,8 +25,8 @@ exports.addNew = async (req, res) => {
 
     try {
         const {day, seat, client, email} = req.body;
-        const newseats = new seats({day: day, seat: seat, client: client, email: email});
-        await newseats.save();
+        const newSeat = new Seat({day: day, seat: seat, client: client, email: email});
+        await newSeat.save();
         res.json({message: 'OK'});
 
     } catch (err) {
@@ -38,7 +38,7 @@ exports.change = async (req, res) => {
 
     const {day, seat, client, email} = req.body;
     try {
-        const item = await seats.findByIdAndUpdate(
+        const item = await Seat.findByIdAndUpdate(
             req.params.id,
             {$set: {day: day, seat: seat, client: client, email: email}},
             {new: true});
@@ -51,9 +51,9 @@ exports.change = async (req, res) => {
 
 exports.deleteById = async (req, res) => {
     try {
-        const item = await (seats.findById(req.params.id));
+        const item = await (Seat.findById(req.params.id));
         if (item) {
-            await seats.deleteOne({_id: req.params.id});
+            await Seat.deleteOne({_id: req.params.id});
             res.json(item);
         }
         else res.status(404).json({message: 'Not found...'});
