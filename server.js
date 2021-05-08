@@ -2,11 +2,22 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const socket = require('socket.io');
+const mongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 
 const app = express();
 const testimonialsRoutes = require('./routes/testimonials.routes');
 const seatsRoutes = require('./routes/seats.routes');
 const concertsRoutes = require('./routes/concerts.routes');
+
+mongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+  if (err){
+    console.log(err);
+  }
+  else {
+    console.log('Successfully connected to the database');
+  }
+});
 
 app.use((req, res, next) => {
   req.io = io;
@@ -42,3 +53,5 @@ const io = socket(server);
 io.on('connection', (socket) => {
   console.log('New client! Its id = ' + socket.id);
 });
+
+
