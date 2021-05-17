@@ -1,6 +1,7 @@
 const Concert = require('../models/concerts.model');
 
 
+
 exports.getAll = async (req, res) => {
     try {
         res.json(await Concert.find({}));
