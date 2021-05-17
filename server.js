@@ -10,14 +10,9 @@ const testimonialsRoutes = require('./routes/testimonials.routes');
 const seatsRoutes = require('./routes/seats.routes');
 const concertsRoutes = require('./routes/concerts.routes');
 
-mongoose.connect('mongodb+srv://${process.env.user}:${process.env.password}@cluster0.zl5my.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
-  if (err){
-    console.log(err);
-  }
-  else {
-    console.log('Successfully connected to the database');
-  }
-});
+
+const dbURI = process.env.NODE_ENV === 'production' ? `mongodb+srv://${process.env.user}:${process.env.password}@cluster0.zl5my.mongodb.net/myFirstDatabase?retryWrites=true&w=majority` : 'mongodb://localhost:27017/NewWaveDB';
+mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
 
