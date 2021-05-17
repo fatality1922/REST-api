@@ -17,6 +17,7 @@ class OrderTicketForm extends React.Component {
     isError: false,
   }
 
+    
   updateSeat = (e, seatId) => {
     const { order } = this.state;
 

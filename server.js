@@ -10,7 +10,7 @@ const testimonialsRoutes = require('./routes/testimonials.routes');
 const seatsRoutes = require('./routes/seats.routes');
 const concertsRoutes = require('./routes/concerts.routes');
 
-mongoose.connect('mongodb+srv://fatality1922:tiktok123@cluster0.zl5my.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+mongoose.connect('mongodb+srv://${process.env.user}:${process.env.password}@cluster0.zl5my.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
   if (err){
     console.log(err);
   }
